@@ -20,7 +20,7 @@ app.get('/ping', (req, res) => {
 app.post('/delete-image', async (req, res) => {
   console.log('Request Body:', req.body);  // เพิ่มบรรทัดนี้เพื่อตรวจสอบข้อมูลที่เซิร์ฟเวอร์ได้รับ
 
-  // รองรับ publicId หรือ public_id
+  // รองรับ publicId หรือ public_id หรือ test
   const publicId = req.body.publicId || req.body.public_id;
 
   if (!publicId) {
