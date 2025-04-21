@@ -9,10 +9,7 @@ const cors       = require('cors');
 
 const app = express();
 app.use(cors());
-app.use(express.json());
-
-// บังคับ TLS1.2 (ถ้าอยากชัวร์ก็ใส่ไว้เลย)
-// require('https').globalAgent.options.secureProtocol = 'TLSv1_2_method';
+app.use(express.json()); // ช่วยให้ Express รู้จักการ parse JSON จาก body
 
 // 1. สุขภาพ API เบสิค
 app.get('/ping', (req, res) => {
@@ -21,6 +18,8 @@ app.get('/ping', (req, res) => {
 
 // 2. ลบรูป
 app.post('/delete-image', async (req, res) => {
+  console.log('Request Body:', req.body);  // เพิ่มบรรทัดนี้เพื่อตรวจสอบข้อมูลที่เซิร์ฟเวอร์ได้รับ
+
   // รองรับ publicId หรือ public_id
   const publicId = req.body.publicId || req.body.public_id;
 
