@@ -1,11 +1,15 @@
-// lib/server.js (หรือ path จริงของคุณ)
-// ——————————————————————————————————————————————
-
 require('dotenv').config();
 
 const express    = require('express');
 const cloudinary = require('cloudinary').v2;
 const cors       = require('cors');
+
+// ✅ ตั้งค่า Cloudinary จาก Environment
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:    process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 const app = express();
 app.use(cors());
@@ -18,9 +22,9 @@ app.get('/ping', (req, res) => {
 
 // 2. ลบรูป
 app.post('/delete-image', async (req, res) => {
-  console.log('Request Body:', req.body);  // เพิ่มบรรทัดนี้เพื่อตรวจสอบข้อมูลที่เซิร์ฟเวอร์ได้รับ
+  console.log('Request Body:', req.body);  // ตรวจสอบ body ที่รับเข้ามา
 
-  // รองรับ publicId หรือ public_id หรือ test
+  // รองรับ publicId หรือ public_id
   const publicId = req.body.publicId || req.body.public_id;
 
   if (!publicId) {
